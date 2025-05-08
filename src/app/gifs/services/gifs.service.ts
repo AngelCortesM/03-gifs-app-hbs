@@ -6,12 +6,14 @@ import { Gif } from '../interfaces/gif.interface';
 import { GifMapper } from '../mapper/gif.mapper';
 
 @Injectable({ providedIn: 'root' })
-export class GifsService {
+export class GifService {
   private readonly http = inject(HttpClient);
   trendingGifs = signal<Gif[]>([]);
+  trendingGifsLoading = signal(true);
 
   constructor() {
     this.loadTrendingGifs();
+    console.log('Servicio creado');
   }
 
   loadTrendingGifs() {
@@ -25,6 +27,7 @@ export class GifsService {
       .subscribe((resp) => {
         const gifs = GifMapper.mapGiphyItemsToGifArray(resp.data);
         this.trendingGifs.set(gifs);
+        this.trendingGifsLoading.set(false);
         console.log({ gifs });
       });
   }
