@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Gif } from '@/gifs/interfaces/gif.interface';
+import { GifService } from '@/gifs/services/gifs.service';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface MenuOption {
@@ -29,4 +31,5 @@ export default class GifsSideMenuOptionsComponent {
       route: '/dashboard/search',
     },
   ];
+  gifService = inject(GifService);
 }
